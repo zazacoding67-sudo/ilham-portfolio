@@ -14,8 +14,8 @@ export const site = {
     },
   ],
   links: {
-    email: "",
+    email: "zazacoding67@gmail.com",
     github: "https://github.com/zazacoding67-sudo",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/muhammad-ilham-ammar-b04534411/",
   },
 };
