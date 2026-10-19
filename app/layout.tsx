@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter_Tight, Instrument_Serif } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
+import Navbar from "@/components/Navbar";
 import "./globals.css";
 
 const interTight = Inter_Tight({
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col font-sans">
         <Cursor />
+        <Navbar />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
