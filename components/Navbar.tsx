@@ -4,9 +4,9 @@ import Link from "next/link";
 import { useEffect, useState, useSyncExternalStore } from "react";
 
 const LINKS = [
-  { label: "Work", href: "#work" },
+  { label: "Work", href: "/#work" },
   { label: "About", href: "/about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 function subscribeScroll(callback: () => void) {
@@ -73,27 +73,16 @@ export default function Navbar() {
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
-          {LINKS.map((link) =>
-            link.href.startsWith("/") ? (
-              <Link
-                key={link.label}
-                href={link.href}
-                data-cursor="hover"
-                className={linkClassName}
-              >
-                {link.label}
-              </Link>
-            ) : (
-              <a
-                key={link.label}
-                href={link.href}
-                data-cursor="hover"
-                className={linkClassName}
-              >
-                {link.label}
-              </a>
-            )
-          )}
+          {LINKS.map((link) => (
+            <Link
+              key={link.label}
+              href={link.href}
+              data-cursor="hover"
+              className={linkClassName}
+            >
+              {link.label}
+            </Link>
+          ))}
         </nav>
 
         <button
@@ -129,29 +118,17 @@ export default function Navbar() {
             </svg>
           </button>
 
-          {LINKS.map((link) =>
-            link.href.startsWith("/") ? (
-              <Link
-                key={link.label}
-                href={link.href}
-                data-cursor="hover"
-                onClick={closeMenu}
-                className="text-[40px] text-text"
-              >
-                {link.label}
-              </Link>
-            ) : (
-              <a
-                key={link.label}
-                href={link.href}
-                data-cursor="hover"
-                onClick={closeMenu}
-                className="text-[40px] text-text"
-              >
-                {link.label}
-              </a>
-            )
-          )}
+          {LINKS.map((link) => (
+            <Link
+              key={link.label}
+              href={link.href}
+              data-cursor="hover"
+              onClick={closeMenu}
+              className="text-[40px] text-text"
+            >
+              {link.label}
+            </Link>
+          ))}
         </div>
       )}
     </>

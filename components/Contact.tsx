@@ -13,11 +13,30 @@ export default function Contact() {
 
   useEffect(() => () => window.clearTimeout(timeoutRef.current), []);
 
+  const fallbackCopy = (text: string) => {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.setAttribute("readonly", "");
+    textarea.style.position = "fixed";
+    textarea.style.left = "-9999px";
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      document.execCommand("copy");
+    } catch {
+      // copy unavailable
+    }
+    document.body.removeChild(textarea);
+  };
+
   const copyEmail = async () => {
     try {
+      if (!navigator.clipboard) {
+        throw new Error("clipboard unavailable");
+      }
       await navigator.clipboard.writeText(EMAIL);
     } catch {
-      // clipboard may be unavailable; still show feedback
+      fallbackCopy(EMAIL);
     }
     setCopied(true);
     window.clearTimeout(timeoutRef.current);
@@ -71,10 +90,11 @@ export default function Contact() {
           <button
             type="button"
             data-cursor="hover"
+            aria-live="polite"
             onClick={copyEmail}
             className="rounded-full border border-border px-4 py-2 text-sm text-muted transition-colors hover:text-text"
           >
-            {copied ? "Copied" : "Copy"}
+            {copied ? "Copied ✓" : "Copy"}
           </button>
         </div>
 

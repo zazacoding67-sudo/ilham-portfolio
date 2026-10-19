@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import { gsap } from "gsap";
 
 const MARQUEE_TEXT =
@@ -88,22 +89,22 @@ export default function Hero() {
         </p>
 
         <div className="mt-10 flex flex-wrap gap-4">
-          <a
-            href="#work"
+          <Link
+            href="/#work"
             data-cursor="hover"
             data-fade
             className="rounded-full bg-accent px-7 py-3.5 text-white"
           >
             View projects
-          </a>
-          <a
-            href="#contact"
+          </Link>
+          <Link
+            href="/#contact"
             data-cursor="hover"
             data-fade
             className="rounded-full border border-border px-7 py-3.5 text-text"
           >
             Contact me
-          </a>
+          </Link>
         </div>
       </div>
 
