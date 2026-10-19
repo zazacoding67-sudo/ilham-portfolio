@@ -25,7 +25,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative overflow-hidden px-8 py-[140px]">
+    <section className="relative overflow-hidden px-8 py-[140px]">
       <div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-[180px] h-[420px] w-[min(90vw,840px)] -translate-x-1/2"
