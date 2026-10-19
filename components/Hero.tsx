@@ -83,8 +83,8 @@ export default function Hero() {
 
         <p data-fade className="mt-8 max-w-[560px] text-[18px] text-muted">
           Computer Science student at UTeM (Database Management). I have built
-          an online store, an event website and an award-winning app for real
-          clients.
+          an online store, an event website and a recycling app for real
+          clients and teams.
         </p>
 
         <div className="mt-10 flex flex-wrap gap-4">

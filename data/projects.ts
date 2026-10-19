@@ -50,7 +50,7 @@ export const projects: Project[] = [
     duration: "1 day (Jul 2026)",
     role: "Web developer (implementation of the organizer's design)",
     summary:
-      "A one-day build of the official promotional site for Malaysia's first mall-integrated functional fitness competition.",
+      "A one-day build of the official promotional site for a mall-integrated functional fitness competition in Malaysia.",
     tech: [
       "TanStack Start",
       "React",
@@ -75,7 +75,7 @@ export const projects: Project[] = [
     duration: "1 month (Jun 2026)",
     role: "Designer and developer",
     summary:
-      "Winner at TI NATUREX 3.0: a recycling awareness app for Malaysia with an AI waste scanner and a map of nearby recycling centres.",
+      "A recycling awareness web app for Malaysia with an AI waste scanner and a map of nearby recycling centres, built for a university team's project showcase.",
     tech: [
       "React",
       "Tailwind CSS",
