@@ -3,6 +3,7 @@ import { Inter_Tight, Instrument_Serif } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
 import Navbar from "@/components/Navbar";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 
 const interTight = Inter_Tight({
@@ -26,7 +27,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${interTight.variable} ${instrumentSerif.variable} h-full antialiased`}
+      className={`${interTight.variable} ${instrumentSerif.variable} antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans">
         <Cursor />

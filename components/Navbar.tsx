@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState, useSyncExternalStore } from "react";
+import { getLenis } from "@/lib/lenis";
 
 const LINKS = [
   { label: "Work", href: "/#work" },
@@ -25,27 +26,11 @@ export default function Navbar() {
   useEffect(() => {
     if (!menuOpen) return;
 
-    const lockScroll = (event: Event) => {
-      event.preventDefault();
-      event.stopPropagation();
-    };
-
-    document.addEventListener("wheel", lockScroll, {
-      passive: false,
-      capture: true,
-    });
-    document.addEventListener("touchmove", lockScroll, {
-      passive: false,
-      capture: true,
-    });
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const lenis = getLenis();
+    lenis?.stop();
 
     return () => {
-      document.removeEventListener("wheel", lockScroll, { capture: true });
-      document.removeEventListener("touchmove", lockScroll, { capture: true });
-      document.body.style.overflow = previousOverflow;
+      lenis?.start();
     };
   }, [menuOpen]);
 
