@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
+import LetterText from "@/components/LetterText";
 
 const MARQUEE_TEXT =
   "Next.js · React · TypeScript · Prisma · Supabase · Tailwind · GSAP · Flutter";
@@ -22,6 +23,11 @@ export default function Hero() {
         ease: "power3.out",
         stagger: 0.12,
         delay: 0.3,
+        onComplete: () => {
+          gsap.set(root.querySelectorAll("[data-line]"), {
+            overflow: "visible",
+          });
+        },
       });
 
       gsap.from(root.querySelectorAll("[data-fade]"), {
@@ -60,52 +66,61 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-[1400px] flex-1 flex-col justify-end px-8 pb-[120px]">
-        <p
-          data-fade
-          className="text-[13px] uppercase tracking-[0.12em] text-muted"
-        >
-          Full-stack Developer & Designer · Melaka, Malaysia
-        </p>
+      <div className="relative z-10 mx-auto grid w-full max-w-[1400px] flex-1 grid-cols-1 items-end gap-12 px-8 pb-[120px] lg:grid-cols-2">
+        <div>
+          <p
+            data-fade
+            className="text-[13px] uppercase tracking-[0.12em] text-muted"
+          >
+            Full-stack Developer & Designer · Melaka, Malaysia
+          </p>
 
-        <h1 className="mt-6 font-sans font-semibold leading-[0.95] tracking-[-0.03em] text-[clamp(44px,8vw,128px)]">
-          <span data-line className="block overflow-hidden">
-            <span className="block">I build websites</span>
-          </span>
-          <span data-line className="block overflow-hidden">
-            <span className="block">
-              <span className="font-serif italic text-accent">
-                real businesses
-              </span>{" "}
-              use.
+          <h1 className="mt-6 font-sans font-semibold leading-[0.95] tracking-[-0.03em] text-[clamp(44px,7vw,112px)]">
+            <span data-line className="block overflow-hidden">
+              <span className="block">
+                <LetterText text="From a message" heroRef={rootRef} />
+              </span>
             </span>
-          </span>
-        </h1>
+            <span data-line className="block overflow-hidden">
+              <span className="block">
+                to{" "}
+                <span className="font-serif italic text-gradient">
+                  <LetterText text="a live site." heroRef={rootRef} />
+                </span>
+              </span>
+            </span>
+          </h1>
 
-        <p data-fade className="mt-8 max-w-[560px] text-[18px] text-muted">
-          Computer Science student at UTeM (Database Management). I have built
-          an online store, an event website and a recycling app for real
-          clients and teams.
-        </p>
+          <p data-fade className="mt-8 max-w-[560px] text-[18px] text-muted">
+            Computer Science student at UTeM (Database Management). I have built
+            an online store, an event website and a recycling app for real
+            clients and teams.
+          </p>
 
-        <div className="mt-10 flex flex-wrap gap-4">
-          <Link
-            href="/#work"
-            data-cursor="hover"
-            data-fade
-            className="btn-gradient rounded-full px-7 py-3.5"
-          >
-            View projects
-          </Link>
-          <Link
-            href="/#contact"
-            data-cursor="hover"
-            data-fade
-            className="rounded-full border border-border px-7 py-3.5 text-text"
-          >
-            Contact me
-          </Link>
+          <div className="mt-10 flex flex-wrap gap-4">
+            <Link
+              href="/#work"
+              data-cursor="hover"
+              data-fade
+              className="btn-gradient rounded-full px-7 py-3.5"
+            >
+              View projects
+            </Link>
+            <Link
+              href="/#contact"
+              data-cursor="hover"
+              data-fade
+              className="rounded-full border border-border px-7 py-3.5 text-text"
+            >
+              Contact me
+            </Link>
+          </div>
         </div>
+
+        <div
+          id="hero-windows"
+          className="relative hidden min-h-[560px] lg:block"
+        ></div>
       </div>
 
       <div className="relative z-10 overflow-hidden border-t border-border py-4">
