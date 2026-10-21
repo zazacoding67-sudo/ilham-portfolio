@@ -169,17 +169,23 @@ export default function Hero() {
               href="/#work"
               data-cursor="hover"
               data-fade
-              className="btn-gradient rounded-full px-7 py-3.5"
+              className="btn-gradient inline-flex items-center rounded-full px-7 py-3.5"
             >
               View projects
+              <span className="btn-arrow" aria-hidden>
+                <span>→</span>
+              </span>
             </Link>
             <Link
               href="/#contact"
               data-cursor="hover"
               data-fade
-              className="rounded-full border border-border px-7 py-3.5 text-text"
+              className="btn-outline inline-flex items-center rounded-full px-7 py-3.5"
             >
               Contact me
+              <span className="btn-arrow" aria-hidden>
+                <span>→</span>
+              </span>
             </Link>
           </div>
         </div>

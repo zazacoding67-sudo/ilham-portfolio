@@ -37,8 +37,74 @@ body {
 
 .btn-gradient {
   background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  background-size: 200% 100%;
+  background-position: 0% 50%;
   color: #050810;
   font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.btn-gradient:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-gradient:focus-visible,
+.btn-outline:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 3px;
+}
+
+.btn-outline {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  transition: 0.3s ease;
+}
+
+.btn-arrow {
+  display: inline-block;
+  width: 1em;
+  margin-left: 0.4em;
+  text-align: center;
+}
+
+.btn-arrow > span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
+@media (hover: hover) {
+  .btn-gradient:hover {
+    background-position: 100% 50%;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px
+      color-mix(in oklab, var(--accent) 45%, transparent);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent);
+    background: var(--surface);
+    transform: translateY(-2px);
+  }
+
+  .btn-gradient:hover .btn-arrow > span,
+  .btn-outline:hover .btn-arrow > span {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-gradient:hover,
+  .btn-gradient:active,
+  .btn-outline:hover,
+  .btn-arrow > span {
+    transform: none;
+  }
 }
 
 #work,
