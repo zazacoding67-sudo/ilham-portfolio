@@ -4,12 +4,45 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
 import LetterText from "@/components/LetterText";
+import StatusBadge from "@/components/StatusBadge";
 
 const MARQUEE_TEXT =
   "Next.js · React · TypeScript · Prisma · Supabase · Tailwind · GSAP · Flutter";
 
 export default function Hero() {
   const rootRef = useRef<HTMLElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    const glow = glowRef.current;
+    if (!root || !glow) return;
+
+    gsap.set(glow, { x: root.clientWidth - 600, y: 0 });
+
+    if (
+      !window.matchMedia("(hover: hover)").matches ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
+
+    const xTo = gsap.quickTo(glow, "x", { duration: 1.2, ease: "power3.out" });
+    const yTo = gsap.quickTo(glow, "y", { duration: 1.2, ease: "power3.out" });
+
+    const onPointerMove = (event: PointerEvent) => {
+      const rect = root.getBoundingClientRect();
+      xTo(event.clientX - rect.left - 300);
+      yTo(event.clientY - rect.top - 300);
+    };
+
+    root.addEventListener("pointermove", onPointerMove);
+
+    return () => {
+      root.removeEventListener("pointermove", onPointerMove);
+      gsap.killTweensOf(glow);
+    };
+  }, []);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -66,8 +99,21 @@ export default function Hero() {
         }}
       />
 
+      <div
+        ref={glowRef}
+        aria-hidden
+        className="pointer-events-none absolute left-0 top-0 z-0 h-[600px] w-[600px] rounded-full blur-3xl"
+        style={{
+          background:
+            "radial-gradient(circle, color-mix(in srgb, var(--glow) 35%, transparent) 0%, transparent 70%)",
+        }}
+      />
+
       <div className="relative z-10 mx-auto grid w-full max-w-[1400px] flex-1 grid-cols-1 items-end gap-12 px-8 pb-[120px] lg:grid-cols-2">
         <div>
+          <div data-fade className="mb-6">
+            <StatusBadge />
+          </div>
           <p
             data-fade
             className="text-[13px] uppercase tracking-[0.12em] text-muted"
