@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
 import LetterText from "@/components/LetterText";
@@ -44,18 +44,29 @@ export default function Hero() {
     };
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = rootRef.current;
     if (!root) return;
 
-    const mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      gsap.from(root.querySelectorAll<HTMLElement>("[data-line] > span"), {
-        yPercent: 100,
+    const ctx = gsap.context(() => {
+      if (
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ) {
+        return;
+      }
+
+      const lines = root.querySelectorAll<HTMLElement>("[data-line] > span");
+      const fades = root.querySelectorAll<HTMLElement>("[data-fade]");
+
+      gsap.set(lines, { yPercent: 110 });
+      gsap.set(fades, { y: 20, opacity: 0 });
+
+      gsap.to(lines, {
+        yPercent: 0,
         duration: 0.9,
-        ease: "power3.out",
         stagger: 0.12,
-        delay: 0.3,
+        ease: "power3.out",
+        delay: 1.1,
         onComplete: () => {
           gsap.set(root.querySelectorAll("[data-line]"), {
             overflow: "visible",
@@ -63,13 +74,13 @@ export default function Hero() {
         },
       });
 
-      gsap.from(root.querySelectorAll("[data-fade]"), {
-        y: 24,
-        opacity: 0,
-        duration: 0.8,
+      gsap.to(fades, {
+        y: 0,
+        opacity: 1,
+        duration: 0.7,
+        stagger: 0.08,
         ease: "power3.out",
-        stagger: 0.1,
-        delay: 0.8,
+        delay: 1.5,
       });
 
       const track = root.querySelector("[data-marquee]");
@@ -81,9 +92,9 @@ export default function Hero() {
           repeat: -1,
         });
       }
-    });
+    }, root);
 
-    return () => mm.revert();
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -109,9 +120,9 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-[1400px] flex-1 grid-cols-1 items-end gap-12 px-8 pb-[120px] lg:grid-cols-2">
+      <div className="relative z-10 mx-auto grid w-full max-w-[1400px] flex-1 grid-cols-1 items-end gap-12 px-8 pb-[120px] pt-[160px] lg:grid-cols-[1.25fr_1fr]">
         <div>
-          <div data-fade className="mb-6">
+          <div data-fade className="mb-5">
             <StatusBadge />
           </div>
           <p
@@ -121,17 +132,27 @@ export default function Hero() {
             Full-stack Developer & Designer · Melaka, Malaysia
           </p>
 
-          <h1 className="mt-6 font-sans font-semibold leading-[0.95] tracking-[-0.03em] text-[clamp(44px,7vw,112px)]">
-            <span data-line className="block overflow-hidden">
+          <h1 className="mt-6 font-sans font-semibold leading-[0.95] tracking-[-0.03em] text-[clamp(40px,5vw,84px)]">
+            <span
+              data-line
+              className="block overflow-hidden pb-[0.12em] -mb-[0.12em] lg:whitespace-nowrap"
+            >
               <span className="block">
                 <LetterText text="From a message" heroRef={rootRef} />
               </span>
             </span>
-            <span data-line className="block overflow-hidden">
+            <span
+              data-line
+              className="block overflow-hidden pb-[0.12em] -mb-[0.12em] lg:whitespace-nowrap"
+            >
               <span className="block">
                 to{" "}
-                <span className="font-serif italic text-gradient">
-                  <LetterText text="a live site." heroRef={rootRef} />
+                <span className="font-serif italic">
+                  <LetterText
+                    text="a live site."
+                    gradient
+                    heroRef={rootRef}
+                  />
                 </span>
               </span>
             </span>

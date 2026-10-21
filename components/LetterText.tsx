@@ -10,9 +10,14 @@ const SKEW = 6;
 type LetterTextProps = {
   text: string;
   heroRef: RefObject<HTMLElement | null>;
+  gradient?: boolean;
 };
 
-export default function LetterText({ text, heroRef }: LetterTextProps) {
+export default function LetterText({
+  text,
+  heroRef,
+  gradient = false,
+}: LetterTextProps) {
   const rootRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -20,7 +25,7 @@ export default function LetterText({ text, heroRef }: LetterTextProps) {
     const hero = heroRef.current;
     if (!root || !hero) return;
     if (
-      window.matchMedia("(hover: none)").matches ||
+      !window.matchMedia("(hover: hover)").matches ||
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     ) {
       return;
@@ -30,7 +35,6 @@ export default function LetterText({ text, heroRef }: LetterTextProps) {
       root.querySelectorAll<HTMLElement>("[data-letter]")
     );
     const setters = letters.map((letter) => ({
-      letter,
       y: gsap.quickTo(letter, "y", { duration: 0.35, ease: "power3.out" }),
       skew: gsap.quickTo(letter, "skewX", {
         duration: 0.35,
@@ -44,19 +48,14 @@ export default function LetterText({ text, heroRef }: LetterTextProps) {
 
     const update = () => {
       frame = 0;
-      for (const { letter, y, skew } of setters) {
-        const rect = letter.getBoundingClientRect();
+      for (let i = 0; i < letters.length; i += 1) {
+        const rect = letters[i].getBoundingClientRect();
         const dx = pointerX - (rect.left + rect.width / 2);
         const dy = pointerY - (rect.top + rect.height / 2);
         const distance = Math.hypot(dx, dy);
-        if (distance < RADIUS) {
-          const strength = 1 - distance / RADIUS;
-          y(-LIFT * strength);
-          skew((dx / RADIUS) * SKEW * strength);
-        } else {
-          y(0);
-          skew(0);
-        }
+        const strength = Math.max(0, 1 - distance / RADIUS);
+        setters[i].y(-LIFT * strength);
+        setters[i].skew(-SKEW * strength);
       }
     };
 
@@ -71,9 +70,9 @@ export default function LetterText({ text, heroRef }: LetterTextProps) {
         cancelAnimationFrame(frame);
         frame = 0;
       }
-      for (const { y, skew } of setters) {
-        y(0);
-        skew(0);
+      for (const set of setters) {
+        set.y(0);
+        set.skew(0);
       }
     };
 
@@ -101,7 +100,9 @@ export default function LetterText({ text, heroRef }: LetterTextProps) {
               <span
                 key={`${letter}-${letterIndex}`}
                 data-letter
-                className="inline-block"
+                className={
+                  gradient ? "text-gradient inline-block" : "inline-block"
+                }
               >
                 {letter}
               </span>
