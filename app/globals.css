@@ -5,9 +5,10 @@
   --surface: #0a1020;
   --border: #16213a;
   --accent: #3d6bff;
+  --accent-2: #9fc0ff;
   --glow: #1b2f6b;
   --text: #e8ecf5;
-  --muted: #8a94a8;
+  --muted: #a3adc2;
 }
 
 @theme inline {
@@ -25,6 +26,19 @@
 body {
   background-color: var(--bg);
   color: var(--text);
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.btn-gradient {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: #050810;
+  font-weight: 600;
 }
 
 #work,

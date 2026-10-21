@@ -93,7 +93,7 @@ export default function Hero() {
             href="/#work"
             data-cursor="hover"
             data-fade
-            className="rounded-full bg-accent px-7 py-3.5 text-white"
+            className="btn-gradient rounded-full px-7 py-3.5"
           >
             View projects
           </Link>

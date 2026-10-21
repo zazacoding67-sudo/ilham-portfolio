@@ -13,6 +13,11 @@ export const site = {
       status: "Currently pursuing",
     },
   ],
+  status: {
+    text: "Open to internships",
+    location: "Melaka, Malaysia",
+    timeZone: "Asia/Kuala_Lumpur",
+  },
   links: {
     email: "zazacoding67@gmail.com",
     github: "https://github.com/zazacoding67-sudo",

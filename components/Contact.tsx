@@ -76,14 +76,14 @@ export default function Contact() {
 
         <h2 className="mt-4 font-sans font-semibold tracking-[-0.03em] text-[clamp(40px,7vw,112px)]">
           Let&apos;s build{" "}
-          <span className="font-serif italic text-accent">something</span>
+          <span className="font-serif italic text-gradient">something</span>
         </h2>
 
         <div className="mt-12 flex flex-wrap items-center justify-center gap-3">
           <a
             href={`mailto:${EMAIL}`}
             data-cursor="hover"
-            className="rounded-full bg-accent px-7 py-3.5 text-white"
+            className="btn-gradient rounded-full px-7 py-3.5"
           >
             {EMAIL}
           </a>
