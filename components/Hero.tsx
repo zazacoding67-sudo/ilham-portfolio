@@ -146,7 +146,8 @@ export default function Hero() {
               className="block overflow-hidden pb-[0.12em] -mb-[0.12em] lg:whitespace-nowrap"
             >
               <span className="block">
-                to{" "}
+                <LetterText text="to" heroRef={rootRef} />
+                {" "}
                 <span className="font-serif italic">
                   <LetterText
                     text="a live site."
