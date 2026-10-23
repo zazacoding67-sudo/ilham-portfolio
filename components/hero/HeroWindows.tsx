@@ -98,7 +98,7 @@ export default function HeroWindows({ heroRef }: HeroWindowsProps) {
       >
         <div
           className="absolute right-0 top-0 z-[2] w-[360px]"
-          style={{ transform: "translateZ(80px)" }}
+          style={{ transform: "translateZ(40px)" }}
         >
           <div className="hw-mover hw-mover-1">
             <div className="hw-float hw-float-1">
@@ -110,8 +110,8 @@ export default function HeroWindows({ heroRef }: HeroWindowsProps) {
         </div>
 
         <div
-          className="absolute left-0 top-[44%] z-[3] w-[300px]"
-          style={{ transform: "rotate(-3deg) translateZ(50px)" }}
+          className="absolute left-0 top-[40%] z-[3] w-[280px]"
+          style={{ transform: "rotate(-3deg) translateZ(20px)" }}
         >
           <div className="hw-mover hw-mover-2">
             <div className="hw-float hw-float-2">
@@ -123,13 +123,15 @@ export default function HeroWindows({ heroRef }: HeroWindowsProps) {
         </div>
 
         <div
-          className="absolute bottom-0 right-6 z-[1] w-[380px]"
-          style={{ transform: "rotate(2deg) translateZ(20px)" }}
+          className="absolute bottom-0 right-0 z-[1] w-[340px]"
+          style={{ transform: "rotate(2deg) translateZ(0px)" }}
         >
           <div className="hw-mover hw-mover-3">
             <div className="hw-float hw-float-3">
               <Window title="terminal">
-                <p className="px-4 py-6 text-[13px] text-muted">coming next</p>
+                <p className="h-[200px] px-4 py-6 text-[13px] text-muted">
+                  coming next
+                </p>
               </Window>
             </div>
           </div>

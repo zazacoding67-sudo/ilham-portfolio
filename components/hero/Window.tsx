@@ -15,9 +15,7 @@ export default function Window({ title, children, className }: WindowProps) {
         className ? ` ${className}` : ""
       }`}
       style={{
-        background: "color-mix(in srgb, var(--surface) 85%, transparent)",
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
+        background: "color-mix(in oklab, var(--surface) 97%, transparent)",
         boxShadow: "0 30px 80px rgba(0, 0, 0, 0.5)",
       }}
     >
