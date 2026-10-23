@@ -5,6 +5,7 @@ import Link from "next/link";
 import { gsap } from "gsap";
 import LetterText from "@/components/LetterText";
 import StatusBadge from "@/components/StatusBadge";
+import HeroWindows from "@/components/hero/HeroWindows";
 
 const MARQUEE_TEXT =
   "Next.js · React · TypeScript · Prisma · Supabase · Tailwind · GSAP · Flutter";
@@ -194,7 +195,9 @@ export default function Hero() {
         <div
           id="hero-windows"
           className="relative hidden min-h-[560px] lg:block"
-        ></div>
+        >
+          <HeroWindows heroRef={rootRef} />
+        </div>
       </div>
 
       <div className="relative z-10 overflow-hidden border-t border-border py-4">
