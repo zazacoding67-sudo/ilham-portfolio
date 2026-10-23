@@ -23,7 +23,7 @@ export default function HeroWindows({ heroRef }: HeroWindowsProps) {
       frame = 0;
       if (window.innerWidth < 1024) return;
       const availW = wrapper.clientWidth;
-      const availH = window.innerHeight - 200;
+      const availH = window.innerHeight - 260;
       const next = Math.max(
         0.72,
         Math.min(1, availW / 600, availH / 600)

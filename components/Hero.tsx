@@ -121,9 +121,18 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-[1400px] flex-1 grid-cols-1 items-end gap-12 px-8 pb-[120px] pt-[160px] lg:grid-cols-[1.25fr_1fr]">
+      <div
+        className="relative z-10 mx-auto grid w-full max-w-[1400px] flex-1 grid-cols-1 items-end gap-12 px-8 lg:grid-cols-[1.25fr_1fr]"
+        style={{
+          paddingTop: "clamp(88px, 14svh, 160px)",
+          paddingBottom: "clamp(32px, 6svh, 96px)",
+        }}
+      >
         <div>
-          <div data-fade className="mb-5">
+          <div
+            data-fade
+            style={{ marginBottom: "clamp(12px, 2.4svh, 28px)" }}
+          >
             <StatusBadge />
           </div>
           <p
@@ -133,7 +142,13 @@ export default function Hero() {
             Full-stack Developer & Designer · Melaka, Malaysia
           </p>
 
-          <h1 className="mt-6 font-sans font-semibold leading-[0.95] tracking-[-0.03em] text-[clamp(40px,5vw,84px)]">
+          <h1
+            className="font-sans font-semibold leading-[0.95] tracking-[-0.03em]"
+            style={{
+              fontSize: "clamp(40px, min(4.8vw, 9svh), 80px)",
+              marginTop: "clamp(12px, 2.4svh, 28px)",
+            }}
+          >
             <span
               data-line
               className="block overflow-hidden pb-[0.12em] -mb-[0.12em] lg:whitespace-nowrap"
@@ -160,13 +175,20 @@ export default function Hero() {
             </span>
           </h1>
 
-          <p data-fade className="mt-8 max-w-[560px] text-[18px] text-muted">
+          <p
+            data-fade
+            className="max-w-[560px] text-[18px] text-muted"
+            style={{ marginTop: "clamp(12px, 2.4svh, 28px)" }}
+          >
             Computer Science student at UTeM (Database Management). I have built
             an online store, an event website and a recycling app for real
             clients and teams.
           </p>
 
-          <div className="mt-10 flex flex-wrap gap-4">
+          <div
+            className="flex flex-wrap gap-4"
+            style={{ marginTop: "clamp(12px, 2.4svh, 28px)" }}
+          >
             <Link
               href="/#work"
               data-cursor="hover"
@@ -194,7 +216,7 @@ export default function Hero() {
 
         <div
           id="hero-windows"
-          className="relative hidden min-h-[560px] lg:block lg:self-center"
+          className="relative hidden lg:block lg:self-center"
         >
           <HeroWindows heroRef={rootRef} />
         </div>
