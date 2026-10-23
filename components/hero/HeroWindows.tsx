@@ -9,7 +9,8 @@ type HeroWindowsProps = {
   heroRef: RefObject<HTMLElement | null>;
 };
 
-const FLOAT_DURATIONS = [5, 6, 7];
+const FLOAT_DURATIONS = [4.5, 5.5, 6.5];
+const SWAY_DURATIONS = [7, 8, 9];
 
 export default function HeroWindows({ heroRef }: HeroWindowsProps) {
   const sceneRef = useRef<HTMLDivElement>(null);
@@ -25,76 +26,113 @@ export default function HeroWindows({ heroRef }: HeroWindowsProps) {
     );
     if (movers.length !== 3) return;
 
-    if (
-      window.innerWidth < 1024 ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      return;
-    }
-
-    const hoverable = window.matchMedia("(hover: hover)").matches;
+    let ctx: gsap.Context | undefined;
     let removeTilt: (() => void) | undefined;
 
-    const ctx = gsap.context(() => {
-      gsap.set(movers, { opacity: 0, x: 80 });
+    const teardown = () => {
+      removeTilt?.();
+      removeTilt = undefined;
+      ctx?.revert();
+      ctx = undefined;
+    };
 
-      gsap.to(movers, {
-        opacity: 1,
-        x: 0,
-        duration: 0.9,
-        ease: "power3.out",
-        stagger: 0.15,
-        delay: 2,
-        onComplete: () => {
-          movers.forEach((mover, index) => {
-            gsap.to(mover, {
-              y: -8,
+    const setup = () => {
+      if (ctx) return;
+      if (window.innerWidth < 1024) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        return;
+      }
+
+      ctx = gsap.context(() => {
+        gsap.set(movers, { opacity: 0, x: 80, rotation: -1.2 });
+
+        const timeline = gsap.timeline();
+        timeline.to(
+          movers,
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.9,
+            ease: "power3.out",
+            stagger: 0.15,
+          },
+          2
+        );
+
+        const floatStart = timeline.duration();
+        movers.forEach((mover, index) => {
+          timeline.to(
+            mover,
+            {
+              y: -16,
               duration: FLOAT_DURATIONS[index],
               ease: "sine.inOut",
               repeat: -1,
               yoyo: true,
-              delay: index * 0.5,
-            });
+            },
+            floatStart
+          );
+          timeline.to(
+            mover,
+            {
+              rotation: 1.2,
+              duration: SWAY_DURATIONS[index],
+              ease: "sine.inOut",
+              repeat: -1,
+              yoyo: true,
+            },
+            floatStart
+          );
+        });
+
+        if (window.matchMedia("(hover: hover)").matches) {
+          const rotateY = gsap.quickTo(scene, "rotationY", {
+            duration: 0.5,
+            ease: "power3.out",
           });
-        },
-      });
+          const rotateX = gsap.quickTo(scene, "rotationX", {
+            duration: 0.5,
+            ease: "power3.out",
+          });
 
-      if (hoverable) {
-        const rotateY = gsap.quickTo(scene, "rotationY", {
-          duration: 0.6,
-          ease: "power3.out",
-        });
-        const rotateX = gsap.quickTo(scene, "rotationX", {
-          duration: 0.6,
-          ease: "power3.out",
-        });
+          const onPointerMove = (event: PointerEvent) => {
+            const rect = hero.getBoundingClientRect();
+            const nx = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+            const ny = ((event.clientY - rect.top) / rect.height) * 2 - 1;
+            rotateY(nx * 10);
+            rotateX(-ny * 7);
+          };
 
-        const onPointerMove = (event: PointerEvent) => {
-          const rect = hero.getBoundingClientRect();
-          const nx = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-          const ny = ((event.clientY - rect.top) / rect.height) * 2 - 1;
-          rotateY(nx * 6);
-          rotateX(-ny * 5);
-        };
+          const onPointerLeave = () => {
+            rotateY(0);
+            rotateX(0);
+          };
 
-        const onPointerLeave = () => {
-          rotateY(0);
-          rotateX(0);
-        };
+          hero.addEventListener("pointermove", onPointerMove);
+          hero.addEventListener("pointerleave", onPointerLeave);
 
-        hero.addEventListener("pointermove", onPointerMove);
-        hero.addEventListener("pointerleave", onPointerLeave);
+          removeTilt = () => {
+            hero.removeEventListener("pointermove", onPointerMove);
+            hero.removeEventListener("pointerleave", onPointerLeave);
+          };
+        }
+      }, scene);
+    };
 
-        removeTilt = () => {
-          hero.removeEventListener("pointermove", onPointerMove);
-          hero.removeEventListener("pointerleave", onPointerLeave);
-        };
+    const onResize = () => {
+      if (window.innerWidth < 1024) {
+        teardown();
+      } else {
+        setup();
       }
-    }, scene);
+    };
+
+    setup();
+    window.addEventListener("resize", onResize);
 
     return () => {
-      removeTilt?.();
-      ctx.revert();
+      window.removeEventListener("resize", onResize);
+      teardown();
     };
   }, [heroRef]);
 

@@ -87,7 +87,7 @@ export default function EditorCard() {
             spellCheck={false}
             aria-label="accent colour hex"
             data-cursor="hover"
-            className="w-[92px] bg-transparent font-mono text-[13px] text-[var(--accent-2)] outline-none"
+            className="w-[80px] bg-transparent font-mono text-[13px] text-[var(--accent-2)] outline-none"
             style={{
               borderBottom: `1px solid ${
                 valid ? "var(--border)" : "#F87171"
@@ -124,7 +124,7 @@ export default function EditorCard() {
         type="button"
         data-cursor="hover"
         onClick={reset}
-        className="mt-3 text-[12px] text-muted transition-colors hover:text-text"
+        className="mt-3 appearance-none border-0 bg-transparent p-0 text-[12px] text-muted underline underline-offset-2 transition-colors hover:text-text"
       >
         reset
       </button>
