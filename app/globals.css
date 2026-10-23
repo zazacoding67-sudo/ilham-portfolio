@@ -111,3 +111,68 @@ body {
 #contact {
   scroll-margin-top: 90px;
 }
+
+@keyframes hw-in {
+  from {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes hw-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1.2deg);
+  }
+  50% {
+    transform: translateY(-16px) rotate(1.2deg);
+  }
+}
+
+.hw-mover {
+  animation: hw-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hw-mover-1 {
+  animation-delay: 2s;
+}
+
+.hw-mover-2 {
+  animation-delay: 2.15s;
+}
+
+.hw-mover-3 {
+  animation-delay: 2.3s;
+}
+
+.hw-float {
+  animation: hw-float 5s ease-in-out infinite;
+}
+
+.hw-float-1 {
+  animation-duration: 4.5s;
+  animation-delay: 2.9s;
+}
+
+.hw-float-2 {
+  animation-duration: 5.5s;
+  animation-delay: 3.05s;
+}
+
+.hw-float-3 {
+  animation-duration: 6.5s;
+  animation-delay: 3.2s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hw-mover,
+  .hw-float {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
