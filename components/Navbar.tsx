@@ -42,45 +42,47 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 flex items-center justify-between px-8 py-5 ${
+        className={`fixed inset-x-0 top-0 z-50 py-5 ${
           scrolled
             ? "border-b border-border bg-bg/80 backdrop-blur-md"
             : "border-b border-transparent"
         }`}
       >
-        <Link
-          href="/"
-          data-cursor="hover"
-          onClick={closeMenu}
-          className="font-sans font-semibold text-text"
-        >
-          Ilham Ammar
-        </Link>
+        <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between px-8">
+          <Link
+            href="/"
+            data-cursor="hover"
+            onClick={closeMenu}
+            className="font-sans font-semibold text-text"
+          >
+            Ilham Ammar
+          </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
-          {LINKS.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              data-cursor="hover"
-              className={linkClassName}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
+          <nav className="hidden items-center gap-8 md:flex">
+            {LINKS.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                data-cursor="hover"
+                className={linkClassName}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
 
-        <button
-          type="button"
-          data-cursor="hover"
-          aria-label="Open menu"
-          onClick={() => setMenuOpen(true)}
-          className="flex flex-col gap-1.5 md:hidden"
-        >
-          <span className="block h-px w-6 bg-text" />
-          <span className="block h-px w-6 bg-text" />
-          <span className="block h-px w-6 bg-text" />
-        </button>
+          <button
+            type="button"
+            data-cursor="hover"
+            aria-label="Open menu"
+            onClick={() => setMenuOpen(true)}
+            className="flex flex-col gap-1.5 md:hidden"
+          >
+            <span className="block h-px w-6 bg-text" />
+            <span className="block h-px w-6 bg-text" />
+            <span className="block h-px w-6 bg-text" />
+          </button>
+        </div>
       </header>
 
       {menuOpen && (
