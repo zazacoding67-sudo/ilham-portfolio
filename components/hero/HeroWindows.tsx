@@ -3,6 +3,7 @@
 import { useEffect, useRef, type RefObject } from "react";
 import Window from "@/components/hero/Window";
 import EditorCard from "@/components/hero/EditorCard";
+import PerformanceCard from "@/components/hero/PerformanceCard";
 
 type HeroWindowsProps = {
   heroRef: RefObject<HTMLElement | null>;
@@ -83,8 +84,12 @@ export default function HeroWindows({ heroRef }: HeroWindowsProps) {
 
   return (
     <div
-      className="relative h-[560px] w-full"
-      style={{ perspective: "1200px" }}
+      className="relative w-full overflow-visible"
+      style={{
+        perspective: "1200px",
+        height: "min(560px, calc(100svh - 300px))",
+        minHeight: "440px",
+      }}
     >
       <div
         ref={sceneRef}
@@ -92,7 +97,7 @@ export default function HeroWindows({ heroRef }: HeroWindowsProps) {
         style={{ transformStyle: "preserve-3d", willChange: "transform" }}
       >
         <div
-          className="absolute right-0 top-0 w-[360px]"
+          className="absolute right-0 top-0 z-[2] w-[360px]"
           style={{ transform: "translateZ(80px)" }}
         >
           <div className="hw-mover hw-mover-1">
@@ -105,20 +110,20 @@ export default function HeroWindows({ heroRef }: HeroWindowsProps) {
         </div>
 
         <div
-          className="absolute left-0 top-[190px] w-[320px]"
+          className="absolute left-0 top-[44%] z-[3] w-[300px]"
           style={{ transform: "rotate(-3deg) translateZ(50px)" }}
         >
           <div className="hw-mover hw-mover-2">
             <div className="hw-float hw-float-2">
               <Window title="performance">
-                <p className="px-4 py-6 text-[13px] text-muted">coming next</p>
+                <PerformanceCard />
               </Window>
             </div>
           </div>
         </div>
 
         <div
-          className="absolute bottom-0 right-6 w-[380px]"
+          className="absolute bottom-0 right-6 z-[1] w-[380px]"
           style={{ transform: "rotate(2deg) translateZ(20px)" }}
         >
           <div className="hw-mover hw-mover-3">

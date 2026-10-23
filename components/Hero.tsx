@@ -194,7 +194,7 @@ export default function Hero() {
 
         <div
           id="hero-windows"
-          className="relative hidden min-h-[560px] lg:block"
+          className="relative hidden min-h-[560px] lg:block lg:self-center"
         >
           <HeroWindows heroRef={rootRef} />
         </div>
